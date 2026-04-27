@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpoonStack: Family Wiki — Your family, out of your head.</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #2A7A73;
+  --teal-deep: #1A5550;
+  --teal-soft: #E8F2F1;
+  --teal-mid: #C2DAD8;
+  --terra: #C2604A;
+  --terra-soft: #FAF0ED;
+  --cream: #FAFAF7;
+  --card: #FFFFFF;
+  --ink: #1E1E1C;
+  --ink-soft: #5A5A56;
+  --ink-faint: #9A9A94;
+  --border: #E8E6E0;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden; }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:16px 48px; display:flex; align-items:center; justify-content:space-between; transition:background .3s,box-shadow .3s; }
+nav.scrolled { background:rgba(250,250,247,.96); backdrop-filter:blur(12px); box-shadow:0 1px 0 var(--border); }
+.nav-logo { font-size:17px; font-weight:800; color:var(--ink); letter-spacing:-.3px; }
+.nav-logo span { color:var(--teal); }
+.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+.nav-links a { font-size:14px; font-weight:500; color:var(--ink-soft); text-decoration:none; transition:color .15s; }
+.nav-links a:hover { color:var(--ink); }
+.nav-cta { background:var(--teal)!important; color:white!important; padding:9px 20px; border-radius:10px; font-weight:700!important; }
+.nav-cta:hover { background:var(--teal-deep)!important; }
+@media(max-width:700px){nav{padding:14px 20px;} .nav-links{display:none;}}
+
+/* HERO */
+.hero { min-height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:140px 24px 80px; text-align:center; background:linear-gradient(180deg,#EEF4F3 0%,var(--cream) 100%); }
+.hero-badge { display:inline-flex; align-items:center; gap:6px; background:var(--teal-soft); border:1px solid var(--teal-mid); color:var(--teal-deep); font-size:12px; font-weight:600; padding:5px 14px; border-radius:20px; margin-bottom:28px; font-family:'DM Mono',monospace; letter-spacing:.05em; }
+.hero h1 { font-size:clamp(2.6rem,6vw,4.8rem); font-weight:800; line-height:1.1; letter-spacing:-.03em; color:var(--ink); max-width:760px; margin-bottom:22px; }
+.hero h1 em { color:var(--teal); font-style:normal; }
+.hero-sub { font-size:clamp(.95rem,2vw,1.15rem); color:var(--ink-soft); max-width:500px; line-height:1.65; margin-bottom:36px; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:56px; }
+.btn-primary { background:var(--teal); color:white; padding:14px 28px; border-radius:12px; font-size:15px; font-weight:700; text-decoration:none; border:none; cursor:pointer; transition:background .15s,transform .1s; display:inline-block; }
+.btn-primary:hover { background:var(--teal-deep); transform:translateY(-1px); }
+.btn-secondary { background:var(--card); color:var(--ink); padding:14px 28px; border-radius:12px; font-size:15px; font-weight:600; text-decoration:none; border:1.5px solid var(--border); cursor:pointer; transition:border-color .15s,transform .1s; display:inline-block; }
+.btn-secondary:hover { border-color:var(--teal-mid); transform:translateY(-1px); }
+
+/* KITCHEN SCREEN HERO DEMO */
+.hero-demo-wrap { width:100%; max-width:1100px; position:relative; }
+.demo-chrome { background:var(--card); border-radius:20px 20px 0 0; border:1px solid var(--border); border-bottom:none; box-shadow:0 8px 60px rgba(30,30,28,.12); overflow:hidden; }
+.demo-bar { background:#F2F0EA; padding:10px 16px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.demo-dot { width:11px; height:11px; border-radius:50%; }
+.demo-url { flex:1; background:white; border:1px solid var(--border); border-radius:6px; padding:4px 12px; font-size:11px; color:var(--ink-faint); font-family:'DM Mono',monospace; text-align:center; }
+.demo-content { overflow:visible; height:auto; position:relative; }
+.demo-content .ks-embed-wrap { transform-origin:top left; }
+.demo-fade { position:absolute; bottom:0; left:0; right:0; height:160px; background:linear-gradient(to bottom,transparent,var(--cream)); pointer-events:none; z-index:10; }
+.demo-caption { background:var(--teal); color:white; padding:10px 20px; font-size:12px; font-weight:500; text-align:center; border-radius:0 0 20px 20px; }
+
+/* SECTIONS */
+section { padding:100px 24px; }
+.section-inner { max-width:960px; margin:0 auto; }
+.section-label { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; }
+.section-heading { font-size:clamp(1.9rem,4vw,2.9rem); font-weight:800; line-height:1.15; letter-spacing:-.025em; color:var(--ink); margin-bottom:16px; }
+.section-sub { font-size:16px; color:var(--ink-soft); line-height:1.65; max-width:540px; }
+
+/* PROBLEM */
+.problem { background:var(--ink); padding:100px 24px; }
+.problem .section-label { color:var(--teal-mid); }
+.problem .section-heading { color:white; }
+.problem-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:2px; margin-top:52px; border-radius:16px; overflow:hidden; }
+.problem-card { background:rgba(255,255,255,.04); padding:28px; border:1px solid rgba(255,255,255,.07); transition:background .2s; }
+.problem-card:hover { background:rgba(255,255,255,.07); }
+.problem-icon { font-size:26px; margin-bottom:12px; display:block; }
+.problem-title { font-size:15px; font-weight:700; color:white; margin-bottom:8px; line-height:1.3; }
+.problem-text { font-size:13.5px; color:rgba(255,255,255,.5); line-height:1.65; }
+.problem-quote { margin-top:56px; text-align:center; font-size:clamp(1.2rem,3vw,1.9rem); font-weight:700; color:white; line-height:1.4; max-width:640px; margin-left:auto; margin-right:auto; }
+.problem-quote em { color:var(--teal-mid); font-style:normal; }
+
+/* HOW */
+.how-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:52px; }
+.how-step { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:26px 22px; transition:box-shadow .2s,transform .2s; position:relative; }
+.how-step::before { content:''; position:absolute; top:0; left:22px; right:22px; height:3px; background:var(--teal); border-radius:0 0 3px 3px; }
+.how-step:hover { box-shadow:0 8px 28px rgba(42,122,115,.1); transform:translateY(-3px); }
+.how-num { font-family:'DM Mono',monospace; font-size:11px; color:var(--teal); font-weight:500; margin-bottom:10px; letter-spacing:.08em; }
+.how-title { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:8px; line-height:1.3; }
+.how-text { font-size:13px; color:var(--ink-soft); line-height:1.6; }
+
+/* WIKI DEMO */
+.demo-section { background:#EEF4F3; }
+.wiki-demo-wrap { max-width:580px; margin:48px auto 0; background:var(--card); border-radius:20px; border:1px solid var(--border); box-shadow:0 12px 48px rgba(42,122,115,.12); overflow:hidden; }
+.wiki-demo-bar { background:var(--teal); padding:10px 16px; display:flex; align-items:center; gap:8px; }
+.wiki-demo-dots { display:flex; gap:5px; }
+.wiki-demo-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.3); }
+.wiki-demo-title { color:white; font-size:12px; font-weight:600; flex:1; text-align:center; }
+
+/* OWNERSHIP */
+.ownership { background:var(--teal-deep); color:white; text-align:center; padding:100px 24px; }
+.ownership .section-label { color:var(--teal-mid); }
+.ownership .section-heading { color:white; max-width:620px; margin:0 auto 22px; }
+.ownership-sub { font-size:16px; color:rgba(255,255,255,.6); max-width:480px; margin:0 auto 44px; line-height:1.65; }
+.ownership-cards { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:44px; }
+.ownership-card { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.13); border-radius:14px; padding:20px 22px; text-align:left; max-width:210px; transition:background .2s; }
+.ownership-card:hover { background:rgba(255,255,255,.13); }
+.ownership-card-icon { font-size:20px; margin-bottom:8px; display:block; }
+.ownership-card-title { font-size:13px; font-weight:700; color:white; margin-bottom:5px; }
+.ownership-card-text { font-size:12px; color:rgba(255,255,255,.5); line-height:1.55; }
+
+/* BOOK */
+.book-section { padding:80px 24px; }
+.book-card { max-width:700px; margin:0 auto; background:var(--card); border-radius:24px; border:1px solid var(--border); padding:44px; display:flex; gap:36px; align-items:center; box-shadow:0 4px 24px rgba(30,30,28,.06); }
+.book-cover { width:90px; flex-shrink:0; background:var(--teal); border-radius:8px; aspect-ratio:2/3; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; padding:12px; box-shadow:4px 4px 0 var(--teal-deep); }
+.book-cover-title { font-size:8px; font-weight:800; color:white; text-align:center; line-height:1.3; text-transform:uppercase; letter-spacing:.05em; }
+.book-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--terra); margin-bottom:8px; }
+.book-title { font-size:20px; font-weight:800; color:var(--ink); margin-bottom:10px; line-height:1.2; letter-spacing:-.02em; }
+.book-desc { font-size:13.5px; color:var(--ink-soft); line-height:1.65; margin-bottom:18px; }
+.btn-terra { background:var(--terra); color:white; padding:10px 20px; border-radius:10px; font-size:13px; font-weight:700; text-decoration:none; display:inline-block; border:none; cursor:pointer; transition:background .15s; }
+.btn-terra:hover { background:#A84F3A; }
+@media(max-width:600px){.book-card{flex-direction:column;padding:28px 22px;}}
+
+/* FINAL CTA */
+.final-cta { background:linear-gradient(135deg,var(--teal-deep) 0%,var(--teal) 100%); padding:120px 24px; text-align:center; }
+.final-cta h2 { font-size:clamp(1.9rem,5vw,3.3rem); font-weight:800; color:white; line-height:1.15; letter-spacing:-.025em; max-width:600px; margin:0 auto 18px; }
+.final-cta p { font-size:16px; color:rgba(255,255,255,.65); max-width:420px; margin:0 auto 36px; line-height:1.6; }
+.final-note { margin-top:18px; font-size:11px; color:rgba(255,255,255,.35); font-family:'DM Mono',monospace; }
+
+/* FOOTER */
+footer { background:var(--ink); padding:36px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.footer-logo { font-size:15px; font-weight:800; color:white; }
+.footer-logo span { color:var(--teal-mid); }
+.footer-text { font-size:12px; color:rgba(255,255,255,.3); }
+@media(max-width:600px){footer{flex-direction:column;text-align:center;padding:28px 20px;}}
+
+/* FADE IN */
+.fade-in { opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+/* TOAST */
+.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:white; padding:10px 20px; border-radius:24px; font-size:13px; font-weight:500; opacity:0; transition:opacity .2s,transform .2s; pointer-events:none; z-index:9999; white-space:nowrap; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+
+<!-- KS SCOPED STYLES -->
+<style id="ks-styles">
+
+  :root {
+    --cream: #F5F2EA;
+    --warm-white: #FDFAF4;
+    --ink: #1C1A16;
+    --ink-soft: #4A4540;
+    --ink-faint: #8A857C;
+    --morning: #C2604A;
+    --morning-soft: #FAF0ED;
+    --teal: #2A7A73;
+    --teal-soft: #E8F2F1;
+    --yellow: #2A7A73;
+    --yellow-soft: #E8F2F1;
+    --pink: #2A7A73;
+    --pink-soft: #E8F2F1;
+    --sage: #2A7A73;
+    --sage-soft: #E8F2F1;
+    --lavender: #C2604A;
+    --lavender-soft: #FAF0ED;
+    --card-shadow: 0 2px 12px rgba(28,26,22,0.08), 0 1px 3px rgba(28,26,22,0.05);
+    --card-shadow-hover: 0 8px 32px rgba(28,26,22,0.14), 0 2px 8px rgba(28,26,22,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--warm-white);
+    border-bottom: 1px solid rgba(28,26,22,0.08);
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .vault-logo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+  .vault-logo span {
+    color: var(--teal);
+  }
+  .topbar-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(28,26,22,0.15);
+  }
+  .topbar-family {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .topbar-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .topbar-date {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+    animation: pulse 3s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── LAYOUT ── */
+  .screen {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    grid-template-rows: auto 1fr;
+    gap: 0;
+    min-height: calc(100vh - 53px);
+  }
+
+  /* ── LEFT: SPOONSTACK ── */
+  .spoonstack-panel {
+    padding: 24px 24px 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-right: 1px solid rgba(28,26,22,0.07);
+  }
+
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 4px;
+  }
+
+  /* ── MORNING STRIP ── */
+  .morning-strip {
+    background: var(--morning-soft);
+    border: 1px solid rgba(232,147,74,0.2);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .morning-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .morning-text h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .morning-text p {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .morning-badge {
+    margin-left: auto;
+    background: var(--morning);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── WIDGET GRID ── */
+  .widget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .widget-grid.three-col {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .widget-card {
+    background: var(--warm-white);
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(28,26,22,0.06);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .widget-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+  }
+  .widget-card.wiggle:hover {
+    animation: wiggle 0.4s ease;
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg) translateY(-2px); }
+    25% { transform: rotate(-1.5deg) translateY(-2px); }
+    75% { transform: rotate(1.5deg) translateY(-2px); }
+  }
+
+  .widget-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+  .wc-morning::before { background: var(--morning); }
+  .wc-teal::before { background: var(--teal); }
+  .wc-yellow::before { background: var(--teal); }
+  .wc-pink::before { background: var(--teal); }
+  .wc-sage::before { background: var(--teal); }
+  .wc-lavender::before { background: var(--morning); }
+
+  .widget-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .tag-morning { background: var(--morning-soft); color: var(--morning); }
+  .tag-teal { background: var(--teal-soft); color: var(--teal); }
+  .tag-yellow { background: var(--teal-soft); color: var(--yellow); }
+  .tag-pink { background: var(--teal-soft); color: var(--pink); }
+  .tag-sage { background: var(--teal-soft); color: var(--sage); }
+  .tag-lavender { background: var(--morning-soft); color: var(--lavender); }
+
+  .widget-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .widget-preview {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .widget-chip {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin: 2px 2px 0 0;
+    font-weight: 500;
+  }
+  .chip-urgent { background: #FDECEA; color: #C0392B; }
+  .chip-done { background: var(--teal-soft); color: var(--sage); }
+  .chip-waiting { background: var(--teal-soft); color: var(--yellow); }
+
+  .widget-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(28,26,22,0.06);
+  }
+  .widget-cta {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.02em;
+  }
+  .widget-arrow {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  /* Triage-specific */
+  .triage-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .triage-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  .dot-red { background: #E05252; }
+  .dot-yellow { background: var(--yellow); }
+  .dot-green { background: var(--sage); }
+
+  /* Dinner decider */
+  .dinner-result {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 6px 0 4px;
+  }
+  .dinner-note {
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  /* ── RIGHT: VAULT / WIKI ── */
+  .vault-panel {
+    background: var(--warm-white);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: calc(100vh - 53px);
+  }
+
+  .vault-header {
+    padding: 20px 22px 14px;
+    border-bottom: 1px solid rgba(28,26,22,0.07);
+    position: sticky;
+    top: 0;
+    background: var(--warm-white);
+    z-index: 10;
+  }
+  .vault-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .vault-subtitle {
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+
+  .vault-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 10px 22px 0;
+    border-bottom: 1px solid rgba(28,26,22,0.07);
+  }
+  .vtab {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    color: var(--ink-faint);
+    border: 1px solid transparent;
+    border-bottom: none;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .vtab-add {
+    color: var(--teal) !important;
+    font-weight: 600;
+  }
+  .vtab.active {
+    color: var(--ink);
+    background: var(--cream);
+    border-color: rgba(28,26,22,0.08);
+  }
+
+  .vault-content {
+    padding: 16px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* ── WIKI CARDS ── */
+  .wiki-section {
+    background: var(--cream);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(28,26,22,0.06);
+  }
+  .wiki-section-header {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .wiki-emoji { font-size: 15px; }
+  .wiki-section-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    flex: 1;
+  }
+  .wiki-section-meta {
+    font-size: 10px;
+    color: var(--ink-faint);
+    font-family: 'DM Mono', monospace;
+  }
+  .wiki-chevron {
+    font-size: 10px;
+    color: var(--ink-faint);
+    transition: transform 0.2s;
+  }
+  .wiki-section.open .wiki-chevron {
+    transform: rotate(90deg);
+  }
+
+  .wiki-body {
+    padding: 0 14px 12px;
+    display: none;
+  }
+  .wiki-section.open .wiki-body {
+    display: block;
+  }
+
+  .wiki-row {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(28,26,22,0.05);
+  }
+  .wiki-row:last-child { border-bottom: none; }
+  .wiki-key {
+    font-size: 10px;
+    color: var(--ink-faint);
+    min-width: 72px;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .wiki-val {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .wiki-val strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .wiki-val .note {
+    font-size: 10px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  /* Kid cards inline */
+  .kid-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .kid-card {
+    background: var(--warm-white);
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(28,26,22,0.07);
+  }
+  .kid-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .kid-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .kid-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .kid-age {
+    font-size: 10px;
+    color: var(--ink-faint);
+    font-family: 'DM Mono', monospace;
+  }
+  .kid-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  .kid-tag {
+    font-size: 9.5px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .kid-rows { font-size: 10.5px; color: var(--ink-soft); line-height: 1.7; }
+  .kid-rows span { color: var(--ink-faint); font-size: 10px; margin-right: 4px; }
+
+  /* Partner briefing */
+  .partner-card {
+    background: var(--warm-white);
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(28,26,22,0.07);
+  }
+  .partner-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .partner-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--morning-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .partner-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .partner-status {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: var(--teal-soft);
+    color: var(--sage);
+    font-weight: 500;
+    margin-left: auto;
+  }
+
+  /* Routines */
+  .routine-block {
+    background: var(--warm-white);
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(28,26,22,0.07);
+    margin-bottom: 6px;
+  }
+  .routine-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .routine-items {
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  .routine-items .check { color: var(--sage); margin-right: 4px; }
+  .routine-items .clock { color: var(--morning); margin-right: 4px; }
+
+  /* Why we do things */
+  .why-card {
+    background: var(--warm-white);
+    border-radius: 10px;
+    padding: 10px 12px;
+    border-left: 3px solid var(--teal);
+    border-top: 1px solid rgba(28,26,22,0.07);
+    border-right: 1px solid rgba(28,26,22,0.07);
+    border-bottom: 1px solid rgba(28,26,22,0.07);
+    margin-bottom: 6px;
+  }
+  .why-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 4px;
+  }
+  .why-text {
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* Save to brain button */
+  .save-brain-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--teal);
+    background: var(--teal-soft);
+    border: 1px solid rgba(61,139,133,0.2);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 4px;
+  }
+  .save-brain-btn:hover {
+    background: rgba(61,139,133,0.15);
+  }
+
+  /* bottom of vault */
+  .vault-footer {
+    padding: 12px 22px;
+    border-top: 1px solid rgba(28,26,22,0.07);
+    display: flex;
+    gap: 8px;
+  }
+  .vault-footer-btn {
+    flex: 1;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(28,26,22,0.1);
+    background: var(--cream);
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .vault-footer-btn:hover {
+    background: var(--warm-white);
+    color: var(--ink);
+  }
+
+  /* ── TAB PANELS ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: flex; flex-direction: column; gap: 14px; }
+
+  /* ── WEATHER STRIP ── */
+  .weather-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--cream);
+    border: 1px solid rgba(28,26,22,0.08);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+
+  /* ── SCROLLBAR ── */
+  .vault-panel::-webkit-scrollbar { width: 4px; }
+  .vault-panel::-webkit-scrollbar-track { background: transparent; }
+  .vault-panel::-webkit-scrollbar-thumb { background: rgba(28,26,22,0.12); border-radius: 4px; }
+
+  /* ── RESPONSIVE NOTE ── */
+  @media (max-width: 900px) {
+    .screen { grid-template-columns: 1fr; }
+    .vault-panel { max-height: none; border-top: 1px solid rgba(28,26,22,0.07); }
+  }
+
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .widget-card.active-hub {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+
+</style>
+
+<!-- WW SCOPED STYLES -->
+<style id="ww-styles">
+
+  :root {
+    --cream: #FAFAF7;
+    --card: #FFFFFF;
+    --ink: #2C2C2A;
+    --ink-soft: #888780;
+    --ink-faint: #B4B2A9;
+    --border: #E8E6E0;
+    --prompt-bg: #F1EFE8;
+
+    /* Hub colors */
+    --vault: #2A7A73;
+    --vault-soft: #E8F2F1;
+    --vault-deep: #1A5550;
+    --morning: #C2604A;
+    --morning-soft: #FAF0ED;
+    --yellow: #2A7A73;
+    --yellow-soft: #E8F2F1;
+    --pink: #2A7A73;
+    --pink-soft: #E8F2F1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 80px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  /* ── WIDGET CARD ── */
+  .widget-card {
+    background: var(--card);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(44,44,42,0.07), 0 1px 4px rgba(44,44,42,0.04);
+    width: 100%;
+    max-width: 560px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .widget-accent {
+    height: 5px;
+    background: var(--vault);
+  }
+
+  .widget-header {
+    padding: 20px 24px 0;
+  }
+  .hub-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--vault-soft);
+    color: var(--vault-deep);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-family: 'DM Mono', monospace;
+  }
+  .widget-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .widget-oneliner {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+
+  /* ── INTERVIEW AREA ── */
+  .interview-area {
+    padding: 0 24px;
+    margin-bottom: 20px;
+  }
+
+  /* Chat bubbles */
+  .chat-thread {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .bubble-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .bubble-row.user {
+    flex-direction: row-reverse;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+  .avatar-claude {
+    background: var(--vault-soft);
+    border: 1px solid rgba(29,158,117,0.2);
+  }
+  .avatar-user {
+    background: #F0EEF7;
+    border: 1px solid rgba(123,111,160,0.2);
+  }
+
+  .bubble {
+    max-width: 78%;
+    padding: 10px 13px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .bubble.claude {
+    background: var(--vault-soft);
+    color: var(--ink);
+    border-bottom-left-radius: 4px;
+    border: 1px solid rgba(29,158,117,0.12);
+  }
+  .bubble.user {
+    background: var(--ink);
+    color: white;
+    border-bottom-right-radius: 4px;
+    text-align: left;
+  }
+  .bubble.user em {
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  .bubble strong { font-weight: 600; }
+  .bubble .soft { color: var(--vault-deep); font-size: 11.5px; font-style: italic; }
+
+  /* typing indicator */
+  .typing {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 10px 13px;
+    background: var(--vault-soft);
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+    border: 1px solid rgba(29,158,117,0.12);
+    width: fit-content;
+  }
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--vault);
+    animation: typingBounce 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingBounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+    40% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  /* Active question */
+  .active-question {
+    background: var(--vault-soft);
+    border: 1.5px solid rgba(29,158,117,0.25);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .active-q-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--vault);
+    margin-bottom: 6px;
+  }
+  .active-q-text {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  /* Input area */
+  .input-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    margin-top: 4px;
+  }
+  .vault-input {
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 13px;
+    font-size: 13px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    resize: none;
+    min-height: 42px;
+    max-height: 100px;
+    outline: none;
+    transition: border-color 0.15s;
+    line-height: 1.4;
+  }
+  .vault-input:focus {
+    border-color: var(--vault);
+  }
+  .vault-input::placeholder {
+    color: var(--ink-faint);
+  }
+  .send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--vault);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    transition: background 0.15s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .send-btn:hover { background: var(--vault-deep); transform: scale(1.05); }
+
+  /* Progress bar */
+  .progress-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--vault);
+    border-radius: 4px;
+    width: 40%;
+    transition: width 0.5s ease;
+  }
+  .progress-label {
+    font-size: 10px;
+    color: var(--ink-faint);
+    font-family: 'DM Mono', monospace;
+    white-space: nowrap;
+  }
+
+  /* Skip row */
+  .skip-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .skip-link {
+    font-size: 11px;
+    color: var(--ink-faint);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    transition: color 0.15s;
+  }
+  .skip-link:hover { color: var(--ink-soft); }
+
+  /* ── DIVIDER ── */
+  .widget-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 24px;
+  }
+
+  /* ── OUTPUT PREVIEW ── */
+  .output-area {
+    padding: 20px 24px;
+  }
+  .output-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+
+  .output-file {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .file-header {
+    background: var(--vault);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .file-icon { font-size: 13px; }
+  .file-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: white;
+    flex: 1;
+  }
+  .file-badge {
+    font-size: 9px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+  }
+  .file-body {
+    padding: 14px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+  .file-body .md-heading {
+    color: var(--ink);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  .file-body .md-key { color: var(--vault-deep); }
+  .file-body .md-val { color: var(--ink); }
+  .file-body .md-section {
+    color: var(--vault);
+    margin-top: 6px;
+    display: block;
+  }
+  .file-body .md-tag {
+    display: inline-block;
+    background: var(--vault-soft);
+    color: var(--vault-deep);
+    padding: 1px 7px;
+    border-radius: 20px;
+    font-size: 10px;
+    margin: 1px 2px;
+  }
+
+  /* Output action buttons */
+  .output-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.15s;
+    text-align: left;
+  }
+  .action-btn .btn-sub {
+    font-size: 10.5px;
+    font-weight: 400;
+    opacity: 0.75;
+    display: block;
+    margin-top: 1px;
+  }
+  .btn-primary {
+    background: var(--vault);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--vault-deep); }
+  .btn-secondary {
+    background: var(--vault-soft);
+    color: var(--vault-deep);
+    border: 1px solid rgba(29,158,117,0.2);
+  }
+  .btn-secondary:hover { background: rgba(29,158,117,0.12); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--cream); color: var(--ink); }
+  .btn-icon { font-size: 15px; flex-shrink: 0; }
+
+  /* ── PROMPT BOX ── */
+  .prompt-box {
+    margin: 0 24px 24px;
+    background: var(--prompt-bg);
+    border-radius: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+  }
+  .prompt-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .prompt-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .prompt-text strong {
+    color: var(--ink);
+  }
+
+  /* ── CROSS REFS ── */
+  .cross-refs {
+    padding: 12px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .cross-label {
+    font-size: 10px;
+    color: var(--ink-faint);
+    font-family: 'DM Mono', monospace;
+  }
+  .cross-pill {
+    font-size: 10px;
+    padding: 2px 9px;
+    border-radius: 20px;
+    background: var(--cream);
+    color: var(--ink-soft);
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  /* ── SECOND WIDGET: OUTPUT STATE ── */
+  .widget-card.output-state .widget-accent {
+    background: var(--vault);
+  }
+
+  /* ── VAULT DAY EXPLAINER ── */
+  .explainer {
+    max-width: 560px;
+    width: 100%;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .explainer h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .explainer h1 em {
+    color: var(--vault);
+    font-style: italic;
+  }
+  .explainer p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  /* ── CHAPTER NOTE ── */
+  .chapter-note {
+    max-width: 560px;
+    width: 100%;
+    background: var(--teal-soft);
+    border: 1px solid rgba(232,212,77,0.4);
+    border-left: 4px solid var(--yellow);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+  .chapter-note-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8A7A00;
+    margin-bottom: 6px;
+  }
+  .chapter-note-text {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .chapter-note-text strong { color: var(--ink); }
+
+  /* ── MINI WIDGET ROW ── */
+  .mini-widget-row {
+    display: flex;
+    gap: 12px;
+    max-width: 560px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .mini-card {
+    flex: 1;
+    background: var(--card);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    box-shadow: 0 2px 10px rgba(44,44,42,0.05);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .mini-card:hover {
+    transform: translateY(-2px) rotate(-0.5deg);
+    box-shadow: 0 6px 20px rgba(44,44,42,0.1);
+  }
+  .mini-accent {
+    height: 3px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+  }
+  .mini-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .mini-sub {
+    font-size: 10px;
+    color: var(--ink-faint);
+  }
+  .mini-status {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'DM Mono', monospace;
+  }
+  .status-done { background: #E6F5F0; color: #0F6E52; }
+  .status-next { background: var(--morning-soft); color: var(--morning); }
+  .status-later { background: var(--cream); color: var(--ink-faint); border: 1px solid var(--border); }
+
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #2C2C2A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Spoon<span>Stack</span>: Family Wiki</div>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#demo">Try it</a></li>
+    <li><a href="#start" class="nav-cta">Start your wiki →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✦ SpoonStack: Family Wiki</div>
+  <h1>You are the family wiki.<br><em>Let's change that.</em></h1>
+  <p class="hero-sub">Everything your family runs on lives in your head and nowhere else. SpoonStack: Family Wiki moves it somewhere safe — one conversation at a time.</p>
+  <div class="hero-actions">
+    <a href="#kitchen" class="btn-primary">See it in action →</a>
+    <a href="#demo" class="btn-secondary">Try it yourself</a>
+  </div>
+</section>
+
+<!-- KITCHEN SCREEN DEMO -->
+<section id="kitchen" style="padding:0; background:linear-gradient(180deg,#EEF4F3 0%,var(--cream) 100%);">
+  <div style="max-width:1100px; margin:0 auto; padding:0 24px 60px;">
+    <div style="text-align:center; padding:48px 0 32px;">
+      <div class="section-label">Live demo</div>
+      <h2 class="section-heading" style="margin-bottom:10px;">Your family, on a screen.</h2>
+      <p class="section-sub" style="margin:0 auto;">Click the wiki tabs on the right. Tap the widgets on the left. This is the real thing.</p>
+    </div>
+    <div class="demo-chrome" style="border-radius:20px; border:1px solid var(--border); box-shadow:0 8px 60px rgba(30,30,28,.12); overflow:hidden;">
+      <div class="demo-bar">
+        <div class="demo-dot" style="background:#FF5F57;"></div>
+        <div class="demo-dot" style="background:#FEBC2E;"></div>
+        <div class="demo-dot" style="background:#28C840;"></div>
+        <div class="demo-url">spoonstack.app · Kitchen Screen</div>
+      </div>
+      <div class="demo-content" style="overflow:visible; height:auto;">
+        <div class="ks-embed-wrap">
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="vault-logo">Spoon<span>Stack</span>: Family Wiki</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-family">The May Family · Kitchen Screen</div>
+  </div>
+  <div class="topbar-right">
+    <div class="weather-pill">☀️ 74° · Breezy</div>
+    <div class="topbar-date">Friday, April 25</div>
+    <div class="topbar-time" id="clock">7:42 AM</div>
+    <div class="status-dot" title="Family Wiki synced"></div>
+  </div>
+</div>
+
+<div class="screen">
+
+  <!-- ══ LEFT: SPOONSTACK WIDGETS ══ -->
+  <div class="spoonstack-panel">
+
+    <div>
+      <div class="panel-label">Today's Stack</div>
+      <div class="morning-strip">
+        <div class="morning-icon">🌤️</div>
+        <div class="morning-text">
+          <h3>Good morning. Here's what today needs.</h3>
+          <p>3 urgent items · Dinner undecided · Twins have early pickup</p>
+        </div>
+        <div class="morning-badge">Morning Hub</div>
+      </div>
+    </div>
+
+    <div class="widget-grid">
+
+      <!-- TRIAGE -->
+      <div class="widget-card wc-morning wiggle">
+        <div class="widget-tag tag-morning">Morning Hub</div>
+        <div class="widget-name">Day Triage</div>
+        <div class="triage-item">
+          <div class="triage-dot dot-red"></div>
+          <div class="widget-preview">IEP follow-up email — Ms. Chen is waiting</div>
+        </div>
+        <div class="triage-item">
+          <div class="triage-dot dot-yellow"></div>
+          <div class="widget-preview">Permission slip · Ava's field trip Fri</div>
+        </div>
+        <div class="triage-item">
+          <div class="triage-dot dot-green"></div>
+          <div class="widget-preview">Grocery restock — pantry staples</div>
+        </div>
+        <div class="widget-action-row">
+          <span class="widget-cta">Open Triage →</span>
+        </div>
+      </div>
+
+      <!-- SCHOOL SCRAMBLE -->
+      <div class="widget-card wc-teal wiggle">
+        <div class="widget-tag tag-teal">Morning Hub</div>
+        <div class="widget-name">School Scramble</div>
+        <div class="widget-preview" style="margin-bottom:6px;">
+          <div style="margin-bottom:3px;">🎒 <strong>Mia</strong> — backpack, signed permission slip</div>
+          <div style="margin-bottom:3px;">🎒 <strong>Ava</strong> — gym shoes, snack, show-and-tell</div>
+          <div>🎒 <strong>Luca</strong> — library book DUE TODAY</div>
+        </div>
+        <div style="margin-top:4px;">
+          <span class="widget-chip chip-urgent">Luca's book!</span>
+          <span class="widget-chip chip-waiting">Ava's slip</span>
+        </div>
+        <div class="widget-action-row">
+          <span class="widget-cta">Run Scramble →</span>
+        </div>
+      </div>
+
+      <!-- DINNER DECIDER -->
+      <div class="widget-card wc-yellow wiggle">
+        <div class="widget-tag tag-yellow">Morning Hub</div>
+        <div class="widget-name">Dinner Decider</div>
+        <div class="dinner-result">Sheet Pan Chicken</div>
+        <div class="dinner-note">✓ everything's in the pantry · 30 min · Luca will eat it</div>
+        <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+          <span class="widget-chip chip-done">Pantry check ✓</span>
+          <span class="widget-chip chip-done">Kid-friendly ✓</span>
+        </div>
+        <div class="widget-action-row">
+          <span class="widget-cta">Different option →</span>
+        </div>
+      </div>
+
+      <!-- BRAIN INBOX -->
+      <div class="widget-card wc-pink wiggle">
+        <div class="widget-tag tag-pink">Brain Inbox</div>
+        <div class="widget-name">Brain Dump</div>
+        <div class="widget-preview" style="font-style:italic; color:var(--ink-faint); font-size:11px; line-height:1.6;">
+          "call dentist for Luca · Branden needs new dress shoes · twins' birthday party ideas · check if tutoring is working"
+        </div>
+        <div style="font-size:10px; color:var(--ink-faint); margin-top:8px;">4 items captured this week → saved to Family Wiki</div>
+        <div class="widget-action-row">
+          <span class="widget-cta">Open Inbox →</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECOND ROW -->
+    <div class="widget-grid three-col">
+
+      <!-- ONE HARD THING -->
+      <div class="widget-card wc-sage wiggle">
+        <div class="widget-tag tag-sage">Morning Hub</div>
+        <div class="widget-name">One Hard Thing</div>
+        <div class="widget-preview">Today's ask: <strong>the IEP email.</strong></div>
+        <div style="font-size:10px; color:var(--ink-faint); margin-top:6px; line-height:1.5;">You've been avoiding this 3 days. Widget will draft it for you.</div>
+        <div class="widget-action-row">
+          <span class="widget-cta">Do it now →</span>
+        </div>
+      </div>
+
+      <!-- PARTNER BRIEFING WIDGET -->
+      <div class="widget-card wc-lavender wiggle">
+        <div class="widget-tag tag-lavender">Morning Hub</div>
+        <div class="widget-name">Branden Briefing</div>
+        <div class="widget-preview" style="line-height:1.6;">
+          In office til 6pm<br>
+          <span style="color:var(--ink-faint); font-size:10.5px;">Needs: pickup reminder at 5:30</span>
+        </div>
+        <div style="font-size:10px; color:var(--ink-faint); margin-top:6px;">Last sync: this morning</div>
+        <div class="widget-action-row">
+          <span class="widget-cta">Send update →</span>
+        </div>
+      </div>
+
+      <!-- SPOON CHECK -->
+      <div class="widget-card wc-morning wiggle">
+        <div class="widget-tag tag-morning">Check-In</div>
+        <div class="widget-name">Spoon Check</div>
+        <div style="display:flex; gap:4px; margin:6px 0;">
+          <div style="width:16px; height:16px; border-radius:50%; background:var(--morning); border:2px solid var(--morning);"></div>
+          <div style="width:16px; height:16px; border-radius:50%; background:var(--morning); border:2px solid var(--morning);"></div>
+          <div style="width:16px; height:16px; border-radius:50%; background:var(--morning); border:2px solid var(--morning);"></div>
+          <div style="width:16px; height:16px; border-radius:50%; background:transparent; border:2px solid rgba(232,147,74,0.35);"></div>
+          <div style="width:16px; height:16px; border-radius:50%; background:transparent; border:2px solid rgba(232,147,74,0.35);"></div>
+        </div>
+        <div style="font-size:10.5px; color:var(--ink-faint);">3/5 · Medium energy day<br>Stack adjusted accordingly</div>
+        <div class="widget-action-row">
+          <span class="widget-cta">Adjust stack →</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ══ RIGHT: THE VAULT ══ -->
+  <div class="vault-panel">
+
+    <div class="vault-header">
+      <div class="vault-title">📖 Family Wiki</div>
+      <div class="vault-subtitle">Living family wiki · synced · last updated 6:58 AM</div>
+    </div>
+
+    <div class="vault-tabs">
+      <div class="vtab active" onclick="ks_switchTab('kids', this)">Kids</div>
+      <div class="vtab" onclick="ks_switchTab('partner', this)">Partner</div>
+      <div class="vtab" onclick="ks_switchTab('ops', this)">House Ops</div>
+      <div class="vtab" onclick="ks_switchTab('brain', this)">My Brain</div>
+      <div class="vtab vtab-add" onclick="ks_switchTab('add', this)">+ Page</div>
+    </div>
+
+    <div class="vault-content">
+
+      <!-- KIDS TAB -->
+      <div class="tab-panel active" id="tab-kids">
+
+        <div class="kid-cards">
+
+          <!-- MIA -->
+          <div class="kid-card">
+            <div class="kid-header">
+              <div class="kid-avatar" style="background:var(--teal-soft);">🐱</div>
+              <div>
+                <div class="kid-name">Mia</div>
+                <div class="kid-age">13 · 8th grade · Monroe Middle</div>
+              </div>
+            </div>
+            <div class="kid-tags">
+              <span class="kid-tag" style="background:var(--morning-soft);color:var(--morning);">Gifted</span>
+              <span class="kid-tag" style="background:var(--teal-soft);color:var(--teal);">Selective Eater</span>
+              <span class="kid-tag" style="background:var(--teal-soft);color:var(--teal);">Needs Quiet Decompression</span>
+            </div>
+            <div class="kid-rows">
+              <span>Teacher</span> Ms. Ramos · ramos@monroe.edu<br>
+              <span>Therapy</span> Tuesdays 4pm · Dr. Park<br>
+              <span>Trigger</span> Too many questions right after school<br>
+              <span>Love lang</span> Acts of service + alone time first
+            </div>
+          </div>
+
+          <!-- AVA -->
+          <div class="kid-card">
+            <div class="kid-header">
+              <div class="kid-avatar" style="background:var(--morning-soft);">🐰</div>
+              <div>
+                <div class="kid-name">Ava</div>
+                <div class="kid-age">10 · 5th grade · Riverside Elem</div>
+              </div>
+            </div>
+            <div class="kid-tags">
+              <span class="kid-tag" style="background:var(--teal-soft);color:var(--teal);">Autistic</span>
+              <span class="kid-tag" style="background:var(--morning-soft);color:var(--morning);">IEP</span>
+              <span class="kid-tag" style="background:var(--teal-soft);color:var(--teal);">Visual Learner</span>
+            </div>
+            <div class="kid-rows">
+              <span>Teacher</span> Ms. Chen · IEP review May 3rd<br>
+              <span>Support</span> OT Fridays · speech Mon/Wed<br>
+              <span>Trigger</span> Unexpected schedule changes<br>
+              <span>Meds</span> 8am · needs food first
+            </div>
+          </div>
+
+          <!-- LUCA -->
+          <div class="kid-card">
+            <div class="kid-header">
+              <div class="kid-avatar" style="background:var(--teal-soft);">🐻</div>
+              <div>
+                <div class="kid-name">Luca</div>
+                <div class="kid-age">10 · 5th grade · Riverside Elem (twin)</div>
+              </div>
+            </div>
+            <div class="kid-tags">
+              <span class="kid-tag" style="background:var(--teal-soft);color:var(--teal);">Dyslexic</span>
+              <span class="kid-tag" style="background:var(--morning-soft);color:var(--morning);">504</span>
+              <span class="kid-tag" style="background:var(--teal-soft);color:var(--teal);">Picky Eater</span>
+            </div>
+            <div class="kid-rows">
+              <span>Tutor</span> Wednesdays 5pm · Ms. Diane<br>
+              <span>504 coord</span> Mr. Ellis · ellis@riverside.edu<br>
+              <span>Trigger</span> Being put on the spot reading aloud<br>
+              <span>Wins on</span> Routines + advance warning
+            </div>
+          </div>
+
+        </div>
+
+        <button class="save-brain-btn">📥 Update a kid's profile</button>
+      </div>
+
+      <!-- PARTNER TAB -->
+      <div class="tab-panel" id="tab-partner">
+        <div class="partner-card">
+          <div class="partner-header">
+            <div class="partner-avatar">👨</div>
+            <div>
+              <div class="partner-name">Branden</div>
+              <div style="font-size:10px; color:var(--ink-faint);">Partner · Dad</div>
+            </div>
+            <div class="partner-status">In office today</div>
+          </div>
+          <div class="kid-rows" style="font-size:11px; line-height:1.8;">
+            <span>Work</span> In office Mon/Wed/Fri · remote T/Th<br>
+            <span>Pickup</span> Can do if reminded by 3:30pm<br>
+            <span>Meals</span> Not picky · handles grill on weekends<br>
+            <span>ADHD</span> Needs direct asks, not hints<br>
+            <span>Love lang</span> Quality time + words of affirmation<br>
+            <span>Don't</span> Dump to-do list at 9pm
+          </div>
+        </div>
+        <div class="why-card" style="margin-top:0;">
+          <div class="why-title">Delegation note</div>
+          <div class="why-text">Branden is willing but needs a clear, specific ask with a time. "Can you pick up the kids at 4:15 today?" works. "Can you help more?" does not.</div>
+        </div>
+        <button class="save-brain-btn">📥 Log partner update</button>
+      </div>
+
+      <!-- HOUSE OPS TAB -->
+      <div class="tab-panel" id="tab-ops">
+        <div class="routine-block">
+          <div class="routine-title">🌅 Morning Routine (6:30–8:10)</div>
+          <div class="routine-items">
+            <span class="clock">⏰</span>6:30 · Mom up, meds out, coffee<br>
+            <span class="clock">⏰</span>6:45 · Wake Mia (needs 10min alone first)<br>
+            <span class="clock">⏰</span>7:00 · Wake twins, Ava's meds with breakfast<br>
+            <span class="check">✓</span>Luca checks backpack off posted list<br>
+            <span class="clock">⏰</span>7:50 · Shoes on, bags by door<br>
+            <span class="clock">⏰</span>8:05 · Out the door
+          </div>
+        </div>
+        <div class="routine-block">
+          <div class="routine-title">🌙 Evening Routine (5:30–9:00)</div>
+          <div class="routine-items">
+            <span class="clock">⏰</span>5:30 · Branden reminder if pickup day<br>
+            <span class="clock">⏰</span>6:00 · Dinner — keep it simple Mon-Thu<br>
+            <span class="check">✓</span>Mia decompresses 30min before homework<br>
+            <span class="check">✓</span>Luca reads with timer (less pressure)<br>
+            <span class="clock">⏰</span>8:30 · Twins bath/bed routine starts<br>
+            <span class="clock">⏰</span>9:00 · Mia wind-down, screens off
+          </div>
+        </div>
+        <div class="routine-block">
+          <div class="routine-title">🛒 Grocery Logic</div>
+          <div class="routine-items">
+            <span class="check">✓</span>Luca safe foods: plain pasta, chicken nuggets, apples, pb<br>
+            <span class="check">✓</span>Ava: texture issues — no mushy, no mixed foods<br>
+            <span class="check">✓</span>Pantry rule: always have rotisserie chicken option<br>
+            <span class="check">✓</span>Restock trigger: Sunday Reset widget
+          </div>
+        </div>
+        <button class="save-brain-btn">📥 Update a routine</button>
+      </div>
+
+      <!-- MY BRAIN TAB -->
+      <div class="tab-panel" id="tab-brain">
+        <div class="partner-card">
+          <div class="partner-header">
+            <div class="partner-avatar">🧠</div>
+            <div>
+              <div class="partner-name">My Brain</div>
+              <div style="font-size:10px; color:var(--ink-faint);">AuDHD · She/her</div>
+            </div>
+            <div class="partner-status" style="background:var(--morning-soft);color:var(--morning);">Page 4 of yours</div>
+          </div>
+          <div class="kid-rows" style="font-size:11px; line-height:1.8;">
+            <span>Diagnosis</span> AuDHD · anxiety · sensory processing<br>
+            <span>Bad brain day</span> Slow start, avoids decisions, needs quiet<br>
+            <span>Don't</span> Give me a list of tasks before coffee<br>
+            <span>Recharge</span> Alone time, no noise, something creative<br>
+            <span>Ask me</span> One thing at a time, text before calling<br>
+            <span>Tell Branden</span> When I go quiet I'm not mad, I'm dysregulated
+          </div>
+        </div>
+        <div class="why-card" style="margin-top:8px; border-left-color:var(--teal);">
+          <div class="why-title" style="color:var(--teal);">Captured automatically</div>
+          <div class="why-text">These insights were pulled from your Brain Dump entries and morning check-ins over the last 3 weeks. Tagged: #mybrain #sensory #communication</div>
+        </div>
+        <button class="save-brain-btn">📥 Update my brain page</button>
+      </div>
+
+      <!-- ADD PAGE TAB -->
+      <div class="tab-panel" id="tab-add">
+        <div style="text-align:center; padding:16px 0 8px;">
+          <div style="font-size:22px; margin-bottom:8px;">📄</div>
+          <div style="font-size:13px; font-weight:700; color:var(--ink); margin-bottom:4px;">Add a wiki page</div>
+          <div style="font-size:11px; color:var(--ink-faint); margin-bottom:16px;">Start from a template or from scratch</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div class="routine-block" style="cursor:pointer;" onclick="document.querySelector('[onclick*=kids]').click()">
+            <div class="routine-title" style="font-size:11px;">🏥 Medical &amp; Diagnoses <span style="float:right;font-size:9px;color:var(--teal);font-family:'DM Mono',monospace;">POPULAR</span></div>
+            <div style="font-size:10.5px;color:var(--ink-faint);">Meds, dosages, diagnoses, emergency contacts, insurance</div>
+          </div>
+          <div class="routine-block" style="cursor:pointer;">
+            <div class="routine-title" style="font-size:11px;">🏫 School &amp; IEPs</div>
+            <div style="font-size:10.5px;color:var(--ink-faint);">Teacher contacts, accommodations, 504s, upcoming reviews</div>
+          </div>
+          <div class="routine-block" style="cursor:pointer;">
+            <div class="routine-title" style="font-size:11px;">👵 Extended Family</div>
+            <div style="font-size:10.5px;color:var(--ink-faint);">Grandparent rules, who can pick up, what they need to know</div>
+          </div>
+          <div class="routine-block" style="cursor:pointer;">
+            <div class="routine-title" style="font-size:11px;">✨ From the community <span style="float:right;font-size:9px;color:var(--morning);font-family:'DM Mono',monospace;">NEW</span></div>
+            <div style="font-size:10.5px;color:var(--ink-faint);">Pages built and shared by other families</div>
+          </div>
+          <div class="routine-block" style="cursor:pointer; border-style:dashed;">
+            <div class="routine-title" style="font-size:11px;">+ Build my own page</div>
+            <div style="font-size:10.5px;color:var(--ink-faint);">Start a conversation, Claude helps you shape it</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="vault-footer">
+      <button class="vault-footer-btn">📖 Full Wiki</button>
+      <button class="vault-footer-btn">+ Add Note</button>
+      <button class="vault-footer-btn">📤 Share</button>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .widget-card.active-hub {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+</style>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    const h = now.getHours();
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    document.getElementById('clock').textContent = `${h % 12 || 12}:${m} ${ampm}`;
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // Tab switching
+  function switchTab(tabId, el) {
+    document.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + tabId).classList.add('active');
+  }
+
+  // Wiki accordion
+  document.querySelectorAll('.wiki-section').forEach(section => {
+    section.classList.add('open');
+    section.querySelector('.wiki-section-header')?.addEventListener('click', () => {
+      section.classList.toggle('open');
+    });
+  });
+
+  // Toast helper
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // Wire up widget CTAs
+  document.querySelectorAll('.widget-cta').forEach(btn => {
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', e => {
+      const name = btn.closest('.widget-card').querySelector('.widget-name')?.textContent?.trim();
+      toast('Opening ' + name + '…');
+      btn.closest('.widget-card').classList.add('active-hub');
+      setTimeout(() => btn.closest('.widget-card').classList.remove('active-hub'), 600);
+    });
+  });
+
+  // Wire up save-brain buttons
+  document.querySelectorAll('.save-brain-btn').forEach(btn => {
+    btn.addEventListener('click', () => toast('✓ Opening editor…'));
+  });
+
+  // Wire up footer buttons
+  document.querySelectorAll('.vault-footer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const label = btn.textContent.trim();
+      if (label.includes('Wiki')) toast('📖 Opening full Family Wiki…');
+      else if (label.includes('Add')) toast('✏️ Add a note…');
+      else if (label.includes('Share')) toast('📤 Share options…');
+    });
+  });
+
+  // Widget cards are tappable
+  document.querySelectorAll('.widget-card').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.widget-cta')) return; // already handled
+      const name = card.querySelector('.widget-name')?.textContent?.trim();
+      if (name) toast('Opening ' + name + '…');
+    });
+  });
+</script>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-caption" style="background:var(--teal); color:white; padding:10px 20px; font-size:12px; font-weight:500; text-align:center; border-radius:0 0 20px 20px;">👆 Interactive — click the tabs, tap the widgets</div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="section-label fade-in">The problem</div>
+    <h2 class="section-heading fade-in">Right now you're doing a job<br>no one knows exists.</h2>
+    <div class="problem-grid fade-in">
+      <div class="problem-card">
+        <span class="problem-icon">🧠</span>
+        <div class="problem-title">You're the only one who knows</div>
+        <div class="problem-text">Ava's meds need food first. Luca can't be put on the spot. Mia needs 30 minutes alone before she can talk. You know all of it. It lives exactly nowhere else.</div>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">🔄</span>
+        <div class="problem-title">You explain it over and over</div>
+        <div class="problem-text">To the babysitter. To your husband. To your mom when she visits. To the sub. The same information, leaving your mouth, again and again, forever.</div>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">💸</span>
+        <div class="problem-title">It costs you spoons every day</div>
+        <div class="problem-text">The mental load of holding all of this — every rule, every why, every person's operating manual — is exhausting. And invisible. Nobody sees it but you.</div>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">😶</span>
+        <div class="problem-title">Nothing is written down</div>
+        <div class="problem-text">Not because you're disorganized. Because there was never a tool that made it easy enough to be worth doing. Until now.</div>
+      </div>
+    </div>
+    <div class="problem-quote fade-in">"What happens to your family<br>when <em>you</em> have a bad brain day?"</div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-label fade-in">How it works</div>
+    <h2 class="section-heading fade-in">You talk.<br>Claude builds the wiki.</h2>
+    <p class="section-sub fade-in">No forms. No systems. One conversation per page — ask about The Kids, your partner, how your house runs, your own brain. Start with the defaults or build whatever your family actually needs.</p>
+    <div class="how-grid fade-in">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-title">Claude asks. You talk.</div>
+        <div class="how-text">Specific, scenario-based questions — not open-ended overviews. "Tell me about a Monday when dinner went wrong." You just answer.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-title">It tags what it hears.</div>
+        <div class="how-text">Claude reflects back exactly what it heard and tags it in real time: #morning #logistics #luca. You confirm, correct, or add more.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-title">A file saves to your Drive.</div>
+        <div class="how-text">Plain markdown. iCloud or Google Drive. Not locked in an app. Readable by anyone, anywhere, forever.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">04</div>
+        <div class="how-title">Your widgets get smarter.</div>
+        <div class="how-text">Dinner Decider knows Luca's safe foods. School Scramble knows Ava's meds. Everything connects to everything.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">05</div>
+        <div class="how-title">The community fills the gaps.</div>
+        <div class="how-text">Other families share the questions that unlocked something — and what their wiki looked like after. Build any page you need.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIKI PAGE DEMO -->
+<section id="demo" class="demo-section">
+  <div class="section-inner" style="text-align:center;">
+    <div class="section-label fade-in">Try it right now</div>
+    <h2 class="section-heading fade-in" style="margin:0 auto 14px;">This is what building<br>a wiki page feels like.</h2>
+    <p class="section-sub fade-in" style="margin:0 auto;">House Ops page, mid-conversation. Type something. Hit send. This is the real thing.</p>
+    <div class="wiki-demo-wrap fade-in">
+      <div class="wiki-demo-bar">
+        <div class="wiki-demo-dots">
+          <div class="wiki-demo-dot"></div>
+          <div class="wiki-demo-dot"></div>
+          <div class="wiki-demo-dot"></div>
+        </div>
+        <div class="wiki-demo-title">SpoonStack: Family Wiki · House Ops</div>
+      </div>
+      <div class="ww-embed-wrap">
+<div class="section-label">SpoonStack: Family Wiki · Book Two Preview · Wiki Page Sessions</div>
+
+<!-- HEADER -->
+<div class="explainer">
+  <h1>Ten minutes.<br><em>One conversation.</em><br>Your family wiki, built.</h1>
+  <p>A Wiki Page isn't a project. It's a cup of coffee and one question. Claude asks. You talk. Your family wiki builds itself — one page at a time.</p>
+</div>
+
+<!-- CHAPTER NOTE -->
+<div class="chapter-note">
+  <div class="chapter-note-label">📖 📖 From Book Two — Chapter 4</div>
+  <div class="chapter-note-text">You don't build the Family Wiki in a day. You build it in <strong>small sessions</strong> — ten minutes here, five minutes there, usually while something's in the oven or the kids are in the bath. Each Wiki Page focuses on <strong>one hard thing</strong>. Then you're done. The file saves to your Drive. It's yours forever.</div>
+</div>
+
+<!-- FLEXIBLE PAGES TRACKER -->
+<div class="mini-widget-row" style="flex-wrap:wrap;">
+  <div class="mini-card">
+    <div class="mini-accent" style="background:var(--vault);"></div>
+    <div class="mini-name">The Kids</div>
+    <div class="mini-status status-done">✓ Done</div>
+  </div>
+  <div class="mini-card">
+    <div class="mini-accent" style="background:var(--vault);"></div>
+    <div class="mini-name">Your Partner</div>
+    <div class="mini-status status-done">✓ Done</div>
+  </div>
+  <div class="mini-card" style="border-color:rgba(194,96,74,0.3); background: var(--morning-soft);">
+    <div class="mini-accent" style="background:var(--morning);"></div>
+    <div class="mini-name">House Ops</div>
+    <div class="mini-status status-next">← Here</div>
+  </div>
+  <div class="mini-card" style="opacity:0.6;">
+    <div class="mini-accent" style="background:var(--border);"></div>
+    <div class="mini-name">My Brain</div>
+    <div class="mini-status status-later">Up next</div>
+  </div>
+  <div class="mini-card" style="opacity:0.6; border-style:dashed; cursor:pointer;">
+    <div class="mini-accent" style="background:var(--border);"></div>
+    <div class="mini-name" style="color:var(--vault);">+ Add page</div>
+    <div class="mini-status status-later">Your call</div>
+  </div>
+</div>
+
+<!-- ══ WIDGET: INTERVIEW STATE ══ -->
+<div class="widget-card">
+  <div class="widget-accent"></div>
+  <div class="widget-header">
+    <div class="hub-badge">📖 Family Wiki</div>
+    <div class="widget-name">Wiki Page 3<br>House Ops</div>
+    <div class="widget-oneliner">Claude interviews you about how your house actually runs — routines, groceries, what breaks when it breaks.</div>
+  </div>
+
+  <div class="interview-area">
+    <div class="progress-bar-wrap">
+      <div class="progress-track">
+        <div class="progress-fill" style="width:40%;"></div>
+      </div>
+      <div class="progress-label">Question 3 of 7</div>
+    </div>
+
+    <div class="chat-thread">
+
+      <div class="bubble-row">
+        <div class="avatar avatar-claude">🧠</div>
+        <div class="bubble claude">
+          Let's talk about mornings. Not the ideal version — the real one. What's the <em>one thing</em> that, when it doesn't happen, makes the whole morning fall apart?
+        </div>
+      </div>
+
+      <div class="bubble-row user">
+        <div class="avatar avatar-user">👩</div>
+        <div class="bubble user">
+          Honestly? When no one knows where their shoes are at 7:55. It's always the shoes. Also Luca needs like three wake-ups or he's impossible.
+        </div>
+      </div>
+
+      <div class="bubble-row">
+        <div class="avatar avatar-claude">🧠</div>
+        <div class="bubble claude">
+          <strong>Got it — shoes are a system failure, not a kid failure.</strong> I'm tagging this: <span style='background:var(--vault-soft);color:var(--vault-deep);padding:1px 7px;border-radius:20px;font-size:11px;font-family:"DM Mono",monospace;'>#morning</span> <span style='background:var(--vault-soft);color:var(--vault-deep);padding:1px 7px;border-radius:20px;font-size:11px;font-family:"DM Mono",monospace;'>#logistics</span> <span style='background:var(--vault-soft);color:var(--vault-deep);padding:1px 7px;border-radius:20px;font-size:11px;font-family:"DM Mono",monospace;'>#luca</span><br><br>Saving: <em>shoes by door rule — non-negotiable, Luca needs 3 wake-ups minimum.</em><br><br>Next: think about a Monday when dinner went <em>wrong</em>. What happened?
+        </div>
+      </div>
+
+    </div>
+
+    <div class="active-question">
+      <div class="active-q-label">Current question</div>
+      <div class="active-q-text">Think about a Monday when dinner went <em>wrong</em>. What happened — and what would have made it easier?</div>
+    </div>
+
+    <div class="input-row">
+      <textarea class="vault-input" placeholder="Just talk — type however feels natural..." rows="1"></textarea>
+      <button class="send-btn">↑</button>
+    </div>
+
+    <div class="skip-row">
+      <span class="skip-link">Skip this question</span>
+      <span class="skip-link">Save & finish early</span>
+    </div>
+  </div>
+
+  <div class="widget-divider"></div>
+
+  <div class="prompt-box">
+    <div class="prompt-box-label">Starter prompt — paste into Claude to begin</div>
+    <div class="prompt-text">
+      <strong>You're helping me build my House Ops wiki page.</strong> Ask me one specific, scenario-based question at a time — not open-ended overviews. After each answer, reflect back exactly what you heard, tag it (e.g. #morning #dinner #logistics #kids), and confirm before moving on. Don't ask about "what works" — ask about what goes <em>wrong</em> and what would have helped. End with a clean markdown file: <strong>house-ops.md</strong>. My family: working mom, husband Branden (ADHD), Mia 13 (gifted, needs decompression), twins Ava+Luca 10 (Ava autistic/IEP, Luca dyslexic/504).
+    </div>
+  </div>
+
+  <div class="cross-refs">
+    <span class="cross-label">Tags on this page:</span>
+    <span class="cross-pill" style="background:var(--vault-soft);color:var(--vault-deep);border-color:rgba(42,122,115,0.2);">#morning</span>
+    <span class="cross-pill" style="background:var(--vault-soft);color:var(--vault-deep);border-color:rgba(42,122,115,0.2);">#dinner</span>
+    <span class="cross-pill" style="background:var(--vault-soft);color:var(--vault-deep);border-color:rgba(42,122,115,0.2);">#logistics</span>
+    <span class="cross-pill" style="background:var(--vault-soft);color:var(--vault-deep);border-color:rgba(42,122,115,0.2);">#luca</span>
+    <span class="cross-pill" style="background:var(--vault-soft);color:var(--vault-deep);border-color:rgba(42,122,115,0.2);">#routines</span>
+    <span class="cross-pill" style="border-style:dashed;cursor:pointer;">+ add tag</span>
+  </div>
+</div>
+
+<!-- ══ WIDGET: OUTPUT STATE ══ -->
+<div class="widget-card output-state" style="margin-top:8px;">
+  <div class="widget-accent"></div>
+  <div style="padding: 16px 24px 0;">
+    <div class="hub-badge">📖 Family Wiki</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:18px; font-weight:800; color:var(--ink); margin-bottom:4px;">Wiki Page 3 · Complete</div>
+    <div style="font-size:12px; color:var(--ink-soft); margin-bottom:16px;">Here's what I heard. Does this feel right?</div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 160px; gap:14px; padding:0 24px 20px; align-items:start;">
+
+    <div class="output-file">
+      <div class="file-header">
+        <span class="file-icon">📄</span>
+        <span class="file-name">house-ops.md</span>
+        <span class="file-badge">iCloud Drive</span>
+      </div>
+      <div class="file-body">
+        <span class="md-heading"># House Ops</span><br>
+        <span class="md-section">## Morning Routine</span>
+        <span class="md-key">wake-order:</span> <span class="md-val">Mom 6:30 → Mia 6:45 → Twins 7:00</span><br>
+        <span class="md-key">luca-note:</span> <span class="md-val">3 wake-ups minimum, start earlier</span><br>
+        <span class="md-key">mia-note:</span> <span class="md-val">pace-setter for house mood. if she's anxious, everyone slows</span><br>
+        <span class="md-key">derailer:</span> <span class="md-val">shoes. shoes. always the shoes.</span><br>
+        <span class="md-key">fix:</span> <span class="md-val">shoes by door rule, non-negotiable</span><br>
+        <span class="md-section">## Dinner Patterns</span>
+        <span class="md-key">rule:</span> <span class="md-val">Mon–Thu = 30 min max. simple wins.</span><br>
+        <span class="md-key">picky:</span> <span class="md-val">Luca: plain pasta, chicken nuggets, apples, pb</span><br>
+        <span class="md-key">picky:</span> <span class="md-val">Ava: no mushy, no mixed textures</span><br>
+        <span class="md-key">why:</span> <span class="md-val">decision fatigue is real by Monday pm</span><br>
+        <span class="md-section">## Tags</span>
+        <span class="md-tag">#routines</span> <span class="md-tag">#dinner</span> <span class="md-tag">#morning</span> <span class="md-tag">#kids</span>
+      </div>
+    </div>
+
+    <div class="output-actions">
+      <button class="action-btn btn-primary">
+        <span class="btn-icon">☁️</span>
+        <span>Save to Drive<span class="btn-sub">Adds to your Family Wiki</span></span>
+      </button>
+      <button class="action-btn btn-secondary">
+        <span class="btn-icon">✏️</span>
+        <span>Edit first<span class="btn-sub">Change anything</span></span>
+      </button>
+      <button class="action-btn btn-ghost">
+        <span class="btn-icon">🔄</span>
+        <span>Keep going<span class="btn-sub">More questions</span></span>
+      </button>
+    </div>
+
+  </div>
+
+  <div style="margin: 0 24px 20px; background:rgba(29,158,117,0.06); border:1px solid rgba(29,158,117,0.15); border-radius:12px; padding:12px 14px;">
+    <div style="font-size:10px; color:var(--vault); font-family:'DM Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px;">🔒 This file is yours</div>
+    <div style="font-size:11.5px; color:var(--ink-soft); line-height:1.55;">Saved as plain markdown in your iCloud Drive. SpoonStack doesn't own it. If you stop using SpoonStack tomorrow, your family's second brain is still yours — readable, editable, forever.</div>
+  </div>
+
+  <div class="cross-refs">
+    <span class="cross-label">Next Wiki Page:</span>
+    <span class="cross-pill" style="background:var(--morning-soft); color:var(--morning); border-color:rgba(194,96,74,0.2);">My Brain →</span><span class="cross-pill" style="border-style:dashed; cursor:pointer;">+ Add another page</span>
+  </div>
+</div>
+
+<style>
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #2C2C2A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // Send button
+  const sendBtn = document.querySelector('.send-btn');
+  const input = document.querySelector('.vault-input');
+  
+  function sendMessage() {
+    const val = input.value.trim();
+    if (!val) return;
+    toast('✓ Saved to House Ops page…');
+    input.value = '';
+    input.style.minHeight = '42px';
+  }
+
+  sendBtn?.addEventListener('click', sendMessage);
+  input?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // Auto-resize textarea
+  input?.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 100) + 'px';
+  });
+
+  // Skip links
+  document.querySelectorAll('.skip-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const txt = link.textContent.trim();
+      if (txt.includes('Skip')) toast('Skipping to next question…');
+      else toast('✓ Wiki Page 3 saved to Family Wiki');
+    });
+  });
+
+  // Output action buttons
+  document.querySelectorAll('.action-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const label = btn.textContent.trim();
+      if (label.includes('Save')) {
+        btn.style.background = 'var(--vault-deep)';
+        btn.innerHTML = '<span class="btn-icon">✓</span><span>Saved to Drive<span class="btn-sub">house-ops.md · iCloud Drive</span></span>';
+        toast('✓ house-ops.md saved to your Family Wiki');
+      } else if (label.includes('Edit')) {
+        toast('✏️ Opening editor…');
+      } else if (label.includes('Keep')) {
+        toast('Continuing interview…');
+      }
+    });
+  });
+
+  // Mini wiki page cards
+  document.querySelectorAll('.mini-card').forEach((card, i) => {
+    card.addEventListener('click', () => {
+      const name = card.querySelector('.mini-name')?.textContent;
+      const status = card.querySelector('.mini-status')?.textContent;
+      if (status?.includes('Done')) toast('📖 Opening ' + name + '…');
+      else if (status?.includes('here')) toast('You\'re working on this one!');
+      else toast('Coming up after this page ✨');
+    });
+  });
+
+  // Chapter note
+  document.querySelector('.chapter-note')?.addEventListener('click', () => {
+    toast('📖 From SpoonStack: Family Wiki — Chapter 4');
+  });
+</script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OWNERSHIP -->
+<section class="ownership">
+  <div class="section-label fade-in">The promise</div>
+  <h2 class="section-heading fade-in">This file is yours.<br>Not ours.</h2>
+  <p class="ownership-sub fade-in">Most apps hold your data hostage. SpoonStack doesn't. Your Family Wiki lives in your Drive as plain text files. No subscription required to read your own family's information.</p>
+  <div class="ownership-cards fade-in">
+    <div class="ownership-card"><span class="ownership-card-icon">📁</span><div class="ownership-card-title">Plain markdown files</div><div class="ownership-card-text">Readable in any text editor, forever. No proprietary format.</div></div>
+    <div class="ownership-card"><span class="ownership-card-icon">☁️</span><div class="ownership-card-title">Your Drive, not ours</div><div class="ownership-card-text">Saves to iCloud Drive or Google Drive. SpoonStack is just the front door.</div></div>
+    <div class="ownership-card"><span class="ownership-card-icon">🔒</span><div class="ownership-card-title">If we disappear tomorrow</div><div class="ownership-card-text">Your wiki is still there. Still yours. Still readable. We can't take it with us.</div></div>
+    <div class="ownership-card"><span class="ownership-card-icon">✏️</span><div class="ownership-card-title">Edit it yourself</div><div class="ownership-card-text">Open in Notes, Obsidian, Notion — whatever you use. It's just a file.</div></div>
+  </div>
+  <a href="#start" class="btn-primary" style="font-size:15px;padding:15px 32px;">Start your Family Wiki →</a>
+</section>
+
+<!-- BOOK TIE-IN -->
+<section class="book-section">
+  <div class="book-card fade-in">
+    <div class="book-cover">
+      <span style="font-size:26px;">📖</span>
+      <div class="book-cover-title">SpoonStack: Family Wiki</div>
+      <div style="font-size:7px;color:rgba(255,255,255,.6);font-family:'DM Mono',monospace;">The Book</div>
+    </div>
+    <div>
+      <div class="book-label">Want company while you build it?</div>
+      <div class="book-title">The book that walks you through every page — with stories, context, and a lot of honesty.</div>
+      <div class="book-desc">The app guides you. The book explains the why. Warm, funny, written for moms who are already tired — and still doing all of it anyway.</div>
+      <button class="btn-terra" onclick="lp_toast('📖 Book coming soon!')">Learn about the book →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="start" class="final-cta">
+  <h2 class="fade-in">Start your Family Wiki.<br>One conversation at a time.</h2>
+  <p class="fade-in">Ten minutes. One page. Your family's brain, somewhere safe.</p>
+  <button class="btn-primary" style="font-size:15px;padding:15px 34px;" onclick="lp_toast('🧠 Opening SpoonStack: Family Wiki…')">Start for free →</button>
+  <div class="final-note">No credit card. Your files. Your Drive. Your wiki.</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Spoon<span>Stack</span>: Family Wiki</div>
+  <div class="footer-text">Part of the SpoonStack family · Made for moms who are holding everything</div>
+</footer>
+
+<div class="toast" id="lp-toast"></div>
+
+<!-- LANDING PAGE SCRIPTS -->
+<script>
+// Landing page toast (namespaced)
+function lp_toast(msg) {
+  const t = document.getElementById('lp-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// Nav scroll
+const lpNav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  lpNav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Fade in observer
+const lpObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => lpObserver.observe(el));
+</script>
+
+<!-- KITCHEN SCREEN SCRIPTS -->
+<script>
+(function() {
+
+  // Clock
+  function ks_updateClock() {
+    const now = new Date();
+    const h = now.getHours();
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    document.getElementById('clock').textContent = `${h % 12 || 12}:${m} ${ampm}`;
+  }
+  ks_updateClock();
+  setInterval(ks_updateClock, 30000);
+
+  // Tab switching
+  function ks_switchTab(tabId, el) {
+    document.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + tabId).classList.add('active');
+  }
+
+  // Wiki accordion
+  document.querySelectorAll('.wiki-section').forEach(section => {
+    section.classList.add('open');
+    section.querySelector('.wiki-section-header')?.addEventListener('click', () => {
+      section.classList.toggle('open');
+    });
+  });
+
+  // Toast helper
+  function ks_toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // Wire up widget CTAs
+  document.querySelectorAll('.widget-cta').forEach(btn => {
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', e => {
+      const name = btn.closest('.widget-card').querySelector('.widget-name')?.textContent?.trim();
+      ks_toast('Opening ' + name + '…');
+      btn.closest('.widget-card').classList.add('active-hub');
+      setTimeout(() => btn.closest('.widget-card').classList.remove('active-hub'), 600);
+    });
+  });
+
+  // Wire up save-brain buttons
+  document.querySelectorAll('.save-brain-btn').forEach(btn => {
+    btn.addEventListener('click', () => ks_toast('✓ Opening editor…'));
+  });
+
+  // Wire up footer buttons
+  document.querySelectorAll('.vault-footer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const label = btn.textContent.trim();
+      if (label.includes('Wiki')) ks_toast('📖 Opening full Family Wiki…');
+      else if (label.includes('Add')) ks_toast('✏️ Add a note…');
+      else if (label.includes('Share')) ks_toast('📤 Share options…');
+    });
+  });
+
+  // Widget cards are tappable
+  document.querySelectorAll('.widget-card').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.widget-cta')) return; // already handled
+      const name = card.querySelector('.widget-name')?.textContent?.trim();
+      if (name) ks_toast('Opening ' + name + '…');
+    });
+  });
+
+})();
+</script>
+
+<!-- WIKI WIDGET SCRIPTS -->
+<script>
+(function() {
+
+  function ww_toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // Send button
+  const ww_sendBtn = document.querySelector('.send-btn');
+  const ww_input = document.querySelector('.vault-input');
+  
+  function ww_sendMessage() {
+    const val = ww_input.value.trim();
+    if (!val) return;
+    ww_toast('✓ Saved to House Ops page…');
+    ww_input.value = '';
+    ww_input.style.minHeight = '42px';
+  }
+
+  ww_sendBtn?.addEventListener('click', ww_sendMessage);
+  ww_input?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      ww_sendMessage();
+    }
+  });
+
+  // Auto-resize textarea
+  ww_input?.addEventListener('input', () => {
+    ww_input.style.height = 'auto';
+    ww_input.style.height = Math.min(input.scrollHeight, 100) + 'px';
+  });
+
+  // Skip links
+  document.querySelectorAll('.skip-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const txt = link.textContent.trim();
+      if (txt.includes('Skip')) ww_toast('Skipping to next question…');
+      else ww_toast('✓ Wiki Page 3 saved to Family Wiki');
+    });
+  });
+
+  // Output action buttons
+  document.querySelectorAll('.action-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const label = btn.textContent.trim();
+      if (label.includes('Save')) {
+        btn.style.background = 'var(--vault-deep)';
+        btn.innerHTML = '<span class="btn-icon">✓</span><span>Saved to Drive<span class="btn-sub">house-ops.md · iCloud Drive</span></span>';
+        ww_toast('✓ house-ops.md saved to your Family Wiki');
+      } else if (label.includes('Edit')) {
+        ww_toast('✏️ Opening editor…');
+      } else if (label.includes('Keep')) {
+        ww_toast('Continuing interview…');
+      }
+    });
+  });
+
+  // Mini wiki page cards
+  document.querySelectorAll('.mini-card').forEach((card, i) => {
+    card.addEventListener('click', () => {
+      const name = card.querySelector('.mini-name')?.textContent;
+      const status = card.querySelector('.mini-status')?.textContent;
+      if (status?.includes('Done')) ww_toast('📖 Opening ' + name + '…');
+      else if (status?.includes('here')) ww_toast('You\'re working on this one!');
+      else ww_toast('Coming up after this page ✨');
+    });
+  });
+
+  // Chapter note
+  document.querySelector('.chapter-note')?.addEventListener('click', () => {
+    ww_toast('📖 From SpoonStack: Family Wiki — Chapter 4');
+  });
+
+})();
+</script>
+
+</body>
+</html>
