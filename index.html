@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SpoonStack: Family Wiki — Your family, out of your head.</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+
+
+
+
 <style>
 :root {
   --teal: #2A7A73;
@@ -64,7 +70,7 @@ section { padding:100px 24px; }
 .section-inner { max-width:960px; margin:0 auto; }
 .section-label { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; }
 .section-heading { font-size:clamp(1.9rem,4vw,2.9rem); font-weight:800; line-height:1.15; letter-spacing:-.025em; color:var(--ink); margin-bottom:16px; }
-.section-sub { font-size:16px; color:var(--ink-soft); line-height:1.65; max-width:540px; }
+.section-sub { font-size:16px; color:var(--ink-soft); line-height:1.65; max-width:540px; margin:0; }
 
 /* PROBLEM */
 .problem { background:var(--ink); padding:100px 24px; }
@@ -76,11 +82,11 @@ section { padding:100px 24px; }
 .problem-icon { font-size:26px; margin-bottom:12px; display:block; }
 .problem-title { font-size:15px; font-weight:700; color:white; margin-bottom:8px; line-height:1.3; }
 .problem-text { font-size:13.5px; color:rgba(255,255,255,.5); line-height:1.65; }
-.problem-quote { margin-top:56px; text-align:center; font-size:clamp(1.2rem,3vw,1.9rem); font-weight:700; color:white; line-height:1.4; max-width:640px; margin-left:auto; margin-right:auto; }
+.problem-quote { margin-top:60px; text-align:center; font-size:clamp(1.1rem,2.5vw,1.8rem); font-weight:700; color:white; line-height:1.45; max-width:600px; margin-left:auto; margin-right:auto; padding:40px; background:rgba(255,255,255,.05); border-radius:20px; border:1px solid rgba(255,255,255,.08); }
 .problem-quote em { color:var(--teal-mid); font-style:normal; }
 
 /* HOW */
-.how-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:52px; }
+.how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:52px; }
 .how-step { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:26px 22px; transition:box-shadow .2s,transform .2s; position:relative; }
 .how-step::before { content:''; position:absolute; top:0; left:22px; right:22px; height:3px; background:var(--teal); border-radius:0 0 3px 3px; }
 .how-step:hover { box-shadow:0 8px 28px rgba(42,122,115,.1); transform:translateY(-3px); }
@@ -140,10 +146,8 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
 /* TOAST */
 .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:white; padding:10px 20px; border-radius:24px; font-size:13px; font-weight:500; opacity:0; transition:opacity .2s,transform .2s; pointer-events:none; z-index:9999; white-space:nowrap; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-</style>
 
-<!-- KS SCOPED STYLES -->
-<style id="ks-styles">
+
 
   :root {
     --cream: #F5F2EA;
@@ -246,7 +250,6 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
     grid-template-columns: 1fr 340px;
     grid-template-rows: auto 1fr;
     gap: 0;
-    min-height: calc(100vh - 53px);
   }
 
   /* ── LEFT: SPOONSTACK ── */
@@ -453,8 +456,7 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
     background: var(--warm-white);
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    max-height: calc(100vh - 53px);
+    overflow-y: visible;
   }
 
   .vault-header {
@@ -786,9 +788,7 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
   }
 
   /* ── SCROLLBAR ── */
-  .vault-panel::-webkit-scrollbar { width: 4px; }
-  .vault-panel::-webkit-scrollbar-track { background: transparent; }
-  .vault-panel::-webkit-scrollbar-thumb { background: rgba(28,26,22,0.12); border-radius: 4px; }
+
 
   /* ── RESPONSIVE NOTE ── */
   @media (max-width: 900px) {
@@ -823,10 +823,8 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
     outline-offset: 2px;
   }
 
-</style>
 
-<!-- WW SCOPED STYLES -->
-<style id="ww-styles">
+
 
   :root {
     --cream: #FAFAF7;
@@ -1432,6 +1430,179 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .widget-card.active-hub {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #2C2C2A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.mobile-menu-btn { display:none; background:none; border:none; font-size:20px; cursor:pointer; color:var(--ink); padding:4px 8px; }
+@media(max-width:768px) {
+  .mobile-menu-btn { display:block; }
+  .nav-links.mobile-open {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 53px; left: 0; right: 0;
+    background: rgba(250,250,247,0.98);
+    backdrop-filter: blur(12px);
+    padding: 20px 24px 28px;
+    border-bottom: 1px solid var(--border);
+    gap: 18px;
+    z-index: 199;
+    box-shadow: 0 8px 32px rgba(30,30,28,0.1);
+  }
+  .nav-links.mobile-open a { font-size: 16px; }
+  .nav-links.mobile-open .nav-cta { text-align: center; padding: 12px 20px; }
+}
+
+/* ── MOBILE NAV ── */
+.mobile-menu-btn { display:none; background:none; border:none; font-size:22px; cursor:pointer; color:var(--ink); padding:4px 8px; }
+@media(max-width:768px) {
+  .mobile-menu-btn { display:block; }
+  .nav-links { display:none !important; }
+  .nav-links.mobile-open {
+    display:flex !important; flex-direction:column;
+    position:fixed; top:53px; left:0; right:0;
+    background:rgba(250,250,247,.98); backdrop-filter:blur(12px);
+    padding:20px 24px 28px; border-bottom:1px solid var(--border);
+    gap:18px; z-index:199; box-shadow:0 8px 32px rgba(30,30,28,.1);
+  }
+  .nav-links.mobile-open a { font-size:16px; }
+  .nav-links.mobile-open .nav-cta { text-align:center; padding:12px 20px; }
+}
+
+/* ── MOBILE LAYOUT ── */
+@media(max-width:768px) {
+  nav { padding:12px 20px; }
+  .hero { padding:90px 20px 60px; min-height:auto; }
+  .hero h1 { font-size:2.2rem; }
+  .hero-sub { font-size:1rem; }
+  .hero-actions { flex-direction:column; align-items:center; gap:10px; }
+  .hero-actions a { width:100%; text-align:center; box-sizing:border-box; }
+  #kitchen > div { padding:0 12px 40px; }
+  #kitchen h2 { font-size:1.6rem; }
+  .demo-chrome { border-radius:12px; }
+  .ks-embed-wrap .screen { grid-template-columns:1fr !important; }
+  .ks-embed-wrap .vault-panel { border-top:1px solid rgba(28,26,22,.07); }
+  .ks-embed-wrap .spoonstack-panel { padding:16px; }
+  .ks-embed-wrap .widget-grid { grid-template-columns:1fr !important; }
+  .ks-embed-wrap .widget-grid.three-col { grid-template-columns:1fr !important; }
+  .demo-caption { border-radius:0 0 12px 12px; font-size:11px; }
+  section { padding:60px 20px; }
+  .problem { padding:60px 20px; }
+  .problem-grid { grid-template-columns:1fr; gap:1px; }
+  .problem-quote { font-size:1.2rem; margin-top:36px; }
+  .how-grid { grid-template-columns:1fr; gap:10px; }
+  .section-heading { font-size:1.7rem; }
+  .section-sub { font-size:14px; }
+  .wiki-demo-wrap { margin:32px 0 0; border-radius:16px; }
+  .ww-embed-wrap { padding:16px; }
+  .ww-embed-wrap .mini-widget-row { gap:8px; }
+  .ww-embed-wrap .mini-card { min-width:80px; flex:1; }
+  .ownership { padding:60px 20px; }
+  .ownership-cards { flex-direction:column; align-items:center; gap:10px; }
+  .ownership-card { max-width:100%; width:100%; }
+  .book-section { padding:60px 20px; }
+  .book-card { flex-direction:column; padding:28px 22px; gap:24px; }
+  .book-cover { width:70px; }
+  .final-cta { padding:80px 20px; }
+  .final-cta h2 { font-size:1.8rem; }
+  .final-cta .btn-primary { width:100%; max-width:320px; }
+  footer { flex-direction:column; text-align:center; padding:28px 20px; gap:8px; }
+}
+@media(max-width:480px) {
+  .hero h1 { font-size:1.8rem; }
+  .section-heading { font-size:1.5rem; }
+  .problem-card { padding:20px; }
+  .how-step { padding:20px 18px; }
+}
+
+
+/* WAITLIST FORM */
+.waitlist-wrap { width: 100%; max-width: 480px; margin: 0 auto; }
+.waitlist-form {}
+.waitlist-row { display: flex; gap: 8px; width: 100%; }
+.waitlist-input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.12);
+  color: white;
+  font-size: 15px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 0;
+}
+.waitlist-input::placeholder { color: rgba(255,255,255,0.45); }
+.waitlist-input:focus { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.18); }
+.waitlist-btn {
+  background: white;
+  color: var(--teal-deep);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 22px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background 0.15s, transform 0.1s;
+  flex-shrink: 0;
+}
+.waitlist-btn:hover { background: var(--teal-soft); transform: translateY(-1px); }
+.waitlist-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 10px; text-align: center; font-family: 'DM Mono', monospace; }
+.waitlist-success { text-align: center; color: white; font-size: 16px; font-weight: 600; padding: 16px; background: rgba(255,255,255,0.1); border-radius: 12px; }
+.waitlist-check { font-size: 20px; margin-right: 6px; }
+@media(max-width:500px) {
+  .waitlist-row { flex-direction: column; }
+  .waitlist-btn { width: 100%; }
+}
+
 </style>
 </head>
 <body>
@@ -1442,8 +1613,9 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
   <ul class="nav-links">
     <li><a href="#how">How it works</a></li>
     <li><a href="#demo">Try it</a></li>
-    <li><a href="#start" class="nav-cta">Start your wiki →</a></li>
+    <li><a href="#start" class="nav-cta">Get early access →</a></li>
   </ul>
+  <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')" aria-label="Menu">☰</button>
 </nav>
 
 <!-- HERO -->
@@ -1853,33 +2025,7 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
 
 </div>
 
-<style>
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--ink);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 24px;
-    font-size: 13px;
-    font-weight: 500;
-    opacity: 0;
-    transition: opacity 0.2s, transform 0.2s;
-    pointer-events: none;
-    z-index: 9999;
-    white-space: nowrap;
-  }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  .widget-card.active-hub {
-    outline: 2px solid var(--teal);
-    outline-offset: 2px;
-  }
-</style>
+
 
 <div class="toast" id="toast"></div>
 
@@ -1919,8 +2065,8 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
     setTimeout(() => t.classList.remove('show'), 2200);
   }
 
-  // Wire up widget CTAs
-  document.querySelectorAll('.widget-cta').forEach(btn => {
+  // Wire up widget CTAs — scoped to kitchen screen
+  document.querySelectorAll('.ks-embed-wrap .widget-cta').forEach(btn => {
     btn.style.cursor = 'pointer';
     btn.addEventListener('click', e => {
       const name = btn.closest('.widget-card').querySelector('.widget-name')?.textContent?.trim();
@@ -1930,13 +2076,13 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
     });
   });
 
-  // Wire up save-brain buttons
-  document.querySelectorAll('.save-brain-btn').forEach(btn => {
+  // Wire up save-brain buttons — scoped
+  document.querySelectorAll('.ks-embed-wrap .save-brain-btn').forEach(btn => {
     btn.addEventListener('click', () => toast('✓ Opening editor…'));
   });
 
-  // Wire up footer buttons
-  document.querySelectorAll('.vault-footer-btn').forEach(btn => {
+  // Wire up footer buttons — scoped
+  document.querySelectorAll('.ks-embed-wrap .vault-footer-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const label = btn.textContent.trim();
       if (label.includes('Wiki')) toast('📖 Opening full Family Wiki…');
@@ -1945,8 +2091,8 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
     });
   });
 
-  // Widget cards are tappable
-  document.querySelectorAll('.widget-card').forEach(card => {
+  // Widget cards are tappable — scoped
+  document.querySelectorAll('.ks-embed-wrap .widget-card').forEach(card => {
     card.addEventListener('click', e => {
       if (e.target.closest('.widget-cta')) return; // already handled
       const name = card.querySelector('.widget-name')?.textContent?.trim();
@@ -1997,18 +2143,18 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
 <section id="how">
   <div class="section-inner">
     <div class="section-label fade-in">How it works</div>
-    <h2 class="section-heading fade-in">You talk.<br>Claude builds the wiki.</h2>
-    <p class="section-sub fade-in">No forms. No systems. One conversation per page — ask about The Kids, your partner, how your house runs, your own brain. Start with the defaults or build whatever your family actually needs.</p>
+    <h2 class="section-heading fade-in">Talk it out.<br>Your wiki builds itself.</h2>
+    <p class="section-sub fade-in" style="max-width:680px;">No forms. No systems. One conversation per page — The Kids, Your Partner, House Ops, Your Brain. Start with the defaults or build whatever your family actually needs.</p>
     <div class="how-grid fade-in">
       <div class="how-step">
         <div class="how-num">01</div>
-        <div class="how-title">Claude asks. You talk.</div>
-        <div class="how-text">Specific, scenario-based questions — not open-ended overviews. "Tell me about a Monday when dinner went wrong." You just answer.</div>
+        <div class="how-title">SpoonStack asks. You talk.</div>
+        <div class="how-text">Scenario-based questions that get to the real stuff — not "describe your morning" but "what's the one thing that derails it?" You just answer.</div>
       </div>
       <div class="how-step">
         <div class="how-num">02</div>
-        <div class="how-title">It tags what it hears.</div>
-        <div class="how-text">Claude reflects back exactly what it heard and tags it in real time: #morning #logistics #luca. You confirm, correct, or add more.</div>
+        <div class="how-title">It captures and tags as you go.</div>
+        <div class="how-text">SpoonStack reflects back what it heard and tags it in real time: #morning #logistics #luca. You confirm, correct, or add more.</div>
       </div>
       <div class="how-step">
         <div class="how-num">03</div>
@@ -2050,7 +2196,7 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
 <!-- HEADER -->
 <div class="explainer">
   <h1>Ten minutes.<br><em>One conversation.</em><br>Your family wiki, built.</h1>
-  <p>A Wiki Page isn't a project. It's a cup of coffee and one question. Claude asks. You talk. Your family wiki builds itself — one page at a time.</p>
+  <p>A Wiki Page isn't a project. It's a cup of coffee and one question. SpoonStack asks. You talk. Your family wiki builds itself — one page at a time.</p>
 </div>
 
 <!-- CHAPTER NOTE -->
@@ -2229,26 +2375,7 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
   </div>
 </div>
 
-<style>
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: #2C2C2A;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 24px;
-    font-size: 13px;
-    font-weight: 500;
-    opacity: 0;
-    transition: opacity 0.2s, transform 0.2s;
-    pointer-events: none;
-    z-index: 9999;
-    white-space: nowrap;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-</style>
+
 
 <div class="toast" id="toast"></div>
 
@@ -2334,6 +2461,7 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
 
 <!-- OWNERSHIP -->
 <section class="ownership">
+  <div class="section-inner" style="text-align:center;">
   <div class="section-label fade-in">The promise</div>
   <h2 class="section-heading fade-in">This file is yours.<br>Not ours.</h2>
   <p class="ownership-sub fade-in">Most apps hold your data hostage. SpoonStack doesn't. Your Family Wiki lives in your Drive as plain text files. No subscription required to read your own family's information.</p>
@@ -2343,7 +2471,8 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
     <div class="ownership-card"><span class="ownership-card-icon">🔒</span><div class="ownership-card-title">If we disappear tomorrow</div><div class="ownership-card-text">Your wiki is still there. Still yours. Still readable. We can't take it with us.</div></div>
     <div class="ownership-card"><span class="ownership-card-icon">✏️</span><div class="ownership-card-title">Edit it yourself</div><div class="ownership-card-text">Open in Notes, Obsidian, Notion — whatever you use. It's just a file.</div></div>
   </div>
-  <a href="#start" class="btn-primary" style="font-size:15px;padding:15px 32px;">Start your Family Wiki →</a>
+  <a href="#start" class="btn-primary" style="font-size:15px;padding:15px 32px;">Get early access →</a>
+  </div>
 </section>
 
 <!-- BOOK TIE-IN -->
@@ -2358,7 +2487,7 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
       <div class="book-label">Want company while you build it?</div>
       <div class="book-title">The book that walks you through every page — with stories, context, and a lot of honesty.</div>
       <div class="book-desc">The app guides you. The book explains the why. Warm, funny, written for moms who are already tired — and still doing all of it anyway.</div>
-      <button class="btn-terra" onclick="lp_toast('📖 Book coming soon!')">Learn about the book →</button>
+      <button class="btn-terra" onclick="document.getElementById('start').scrollIntoView({behavior:'smooth'})">Join the waitlist →</button>
     </div>
   </div>
 </section>
@@ -2367,8 +2496,28 @@ footer { background:var(--ink); padding:36px 48px; display:flex; align-items:cen
 <section id="start" class="final-cta">
   <h2 class="fade-in">Start your Family Wiki.<br>One conversation at a time.</h2>
   <p class="fade-in">Ten minutes. One page. Your family's brain, somewhere safe.</p>
-  <button class="btn-primary" style="font-size:15px;padding:15px 34px;" onclick="lp_toast('🧠 Opening SpoonStack: Family Wiki…')">Start for free →</button>
-  <div class="final-note">No credit card. Your files. Your Drive. Your wiki.</div>
+
+<div class="waitlist-wrap">
+  <form class="waitlist-form" id="waitlist-form" action="https://formspree.io/f/xvzdjqdv" method="POST">
+    <input type="hidden" name="source" value="SpoonStack Family Wiki Landing Page">
+    <div class="waitlist-row">
+      <input 
+        type="email" 
+        name="email" 
+        placeholder="your@email.com" 
+        required 
+        class="waitlist-input"
+      />
+      <button type="submit" class="waitlist-btn">Get early access →</button>
+    </div>
+    <div class="waitlist-note">No spam. Just a heads up when it's ready.</div>
+  </form>
+  <div class="waitlist-success" id="waitlist-success" style="display:none;">
+    <span class="waitlist-check">✓</span> You're on the list! We'll be in touch.
+  </div>
+</div>
+
+  <div class="final-note">No credit card. No commitment. Just early access.</div>
 </section>
 
 <!-- FOOTER -->
@@ -2389,6 +2538,36 @@ function lp_toast(msg) {
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
+
+// Waitlist form
+const waitlistForm = document.getElementById('waitlist-form');
+const waitlistSuccess = document.getElementById('waitlist-success');
+if (waitlistForm) {
+  waitlistForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = waitlistForm.querySelector('.waitlist-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(waitlistForm.action, {
+        method: 'POST',
+        body: new FormData(waitlistForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        waitlistForm.style.display = 'none';
+        waitlistSuccess.style.display = 'block';
+      } else {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    } catch(err) {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  });
+}
+
 // Nav scroll
 const lpNav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
@@ -2400,6 +2579,19 @@ const lpObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.fade-in').forEach(el => lpObserver.observe(el));
+</script>
+
+
+<script>
+// Kitchen screen tab switcher — global so onclick attrs can reach it
+function ks_switchTab(tabId, el) {
+  const container = el.closest('.screen');
+  if (!container) return;
+  container.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
+  container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  container.querySelector('[id="tab-' + tabId + '"]')?.classList.add('active');
+}
 </script>
 
 <!-- KITCHEN SCREEN SCRIPTS -->
@@ -2417,16 +2609,10 @@ document.querySelectorAll('.fade-in').forEach(el => lpObserver.observe(el));
   ks_updateClock();
   setInterval(ks_updateClock, 30000);
 
-  // Tab switching
-  function ks_switchTab(tabId, el) {
-    document.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('tab-' + tabId).classList.add('active');
-  }
+  // Tab switching — exposed to window so onclick attrs can reach it
 
-  // Wiki accordion
-  document.querySelectorAll('.wiki-section').forEach(section => {
+  // Wiki accordion — scoped
+  document.querySelectorAll('.ks-embed-wrap .wiki-section').forEach(section => {
     section.classList.add('open');
     section.querySelector('.wiki-section-header')?.addEventListener('click', () => {
       section.classList.toggle('open');
@@ -2435,14 +2621,15 @@ document.querySelectorAll('.fade-in').forEach(el => lpObserver.observe(el));
 
   // Toast helper
   function ks_toast(msg) {
-    const t = document.getElementById('toast');
+    const t = document.getElementById('lp-toast');
+    if (!t) return;
     t.textContent = msg;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2200);
   }
 
-  // Wire up widget CTAs
-  document.querySelectorAll('.widget-cta').forEach(btn => {
+  // Wire up widget CTAs — scoped to kitchen screen
+  document.querySelectorAll('.ks-embed-wrap .widget-cta').forEach(btn => {
     btn.style.cursor = 'pointer';
     btn.addEventListener('click', e => {
       const name = btn.closest('.widget-card').querySelector('.widget-name')?.textContent?.trim();
@@ -2452,13 +2639,13 @@ document.querySelectorAll('.fade-in').forEach(el => lpObserver.observe(el));
     });
   });
 
-  // Wire up save-brain buttons
-  document.querySelectorAll('.save-brain-btn').forEach(btn => {
+  // Wire up save-brain buttons — scoped
+  document.querySelectorAll('.ks-embed-wrap .save-brain-btn').forEach(btn => {
     btn.addEventListener('click', () => ks_toast('✓ Opening editor…'));
   });
 
-  // Wire up footer buttons
-  document.querySelectorAll('.vault-footer-btn').forEach(btn => {
+  // Wire up footer buttons — scoped
+  document.querySelectorAll('.ks-embed-wrap .vault-footer-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const label = btn.textContent.trim();
       if (label.includes('Wiki')) ks_toast('📖 Opening full Family Wiki…');
@@ -2467,8 +2654,8 @@ document.querySelectorAll('.fade-in').forEach(el => lpObserver.observe(el));
     });
   });
 
-  // Widget cards are tappable
-  document.querySelectorAll('.widget-card').forEach(card => {
+  // Widget cards are tappable — scoped
+  document.querySelectorAll('.ks-embed-wrap .widget-card').forEach(card => {
     card.addEventListener('click', e => {
       if (e.target.closest('.widget-cta')) return; // already handled
       const name = card.querySelector('.widget-name')?.textContent?.trim();
